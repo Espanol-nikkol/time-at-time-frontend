@@ -1,0 +1,79 @@
+@use '@styles/variables';
+
+.paper {
+    position: relative;
+    width: 100%;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    padding-top: 32px;
+    padding-bottom: 80px;
+    height: 100%;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border-radius: 32px;
+    padding: 14px 15px;
+    width: 100%;
+    height: 48px;
+    color: variables.$color-blue-1;
+    text-decoration: none;
+
+    &.isActive {
+        background-color: variables.$color-ui-elements-hover;
+        pointer-events: none;
+    }
+}
+
+:root .text {
+    margin-top: 1px;
+    color: inherit;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: auto;
+}
+
+:root .captionDemo {
+    color: #6f767e;
+    white-space: pre-wrap;
+
+    .accent {
+        color: variables.$color-blue-3;
+    }
+}
+
+.loginLink {
+    justify-content: flex-start;
+    gap: 5px;
+    background-color: variables.$color-ui-elements-main;
+    height: 48px;
+    color: white;
+    text-decoration: none;
+}
+
+.logoutButon {
+    justify-content: flex-start;
+    gap: 4px;
+    height: 48px;
+}
+
+.closeButton {
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+    box-shadow: variables.$shadow-knob;
+    background-color: white;
+    padding: 0;
+    width: 42px;
+    height: 42px;
+    color: variables.$color-blue-3;
+}

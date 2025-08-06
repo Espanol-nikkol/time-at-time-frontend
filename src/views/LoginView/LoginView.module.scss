@@ -1,0 +1,27 @@
+@use '@styles/variables';
+
+:root .notion {
+    display: block;
+    margin-top: 28px;
+    width: 100%;
+    color: variables.$color-text-caption-light;
+    text-align: center;
+}
+
+.registerLink {
+    border-bottom: 1px dashed currentcolor;
+}
+
+.form {
+    margin-top: 24px;
+}
+
+.link {
+    margin-top: 8px;
+    min-height: 36px;
+    color: variables.$color-blue-1;
+}
+
+:root .linkCaption {
+    color: inherit;
+}

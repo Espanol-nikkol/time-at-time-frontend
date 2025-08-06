@@ -1,0 +1,44 @@
+@use './variables' as variables;
+@use './fonts/ttt';
+
+// TODO: разобраться с подключением вариативных оптимизированных шрифтов
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    outline: none;
+}
+
+:root {
+    background-color: variables.$color-background-tertiary;
+    color: variables.$color-black;
+    font-weight: 400;
+    font-family: variables.$font-family-base, Arial, sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizelegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    display: flex;
+    place-items: center;
+    margin: 0;
+}
+
+#root {
+    flex-grow: 1;
+    width: 100vw;
+}
+
+/* TODO: define styles for a, ul, ol, li, button, p */
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}

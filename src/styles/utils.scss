@@ -1,0 +1,61 @@
+@use 'sass:math';
+@use 'sass:list';
+@use './media' as media;
+@use './variables' as variables;
+
+@mixin custom-scrollbar {
+    @supports not (selector(::-webkit-scrollbar)) {
+        scrollbar-color: #a4a4b6 transparent;
+    }
+
+    @supports selector(::-webkit-scrollbar) {
+        @include media.vw-medium-down {
+            &::-webkit-scrollbar {
+                width: 6px;
+                height: 6px;
+            }
+        }
+
+        @include media.vw-small-down {
+            &::-webkit-scrollbar {
+                width: 4px;
+                height: 4px;
+            }
+        }
+
+        &::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        &::-webkit-scrollbar-track,
+        &::-webkit-scrollbar-corner {
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            z-index: 10;
+            border: none;
+            border-radius: 40px;
+            background-color: #a4a4b6;
+        }
+    }
+}
+
+@function to-rem($size) {
+    @return math.div($size, 16px) * 1rem;
+}
+
+@mixin set-transition(
+    $properties: (),
+    $duration: variables.$transition-default-duration,
+    $timingFunction: variables.$transition-default-timing-function,
+    $isImportant: false
+) {
+    @if list.length($properties) == 1 {
+        transition: $properties $duration $timingFunction #{if($isImportant, '!important', '')};
+    } @else if list.length($properties) > 1 {
+        transition: $duration $timingFunction #{if($isImportant, '!important', '')};
+        transition-property: $properties #{if($isImportant, '!important', '')};
+    }
+}

@@ -1,0 +1,11 @@
+.root {
+    width: fit-content;
+}
+
+.image {
+    --width: 100px;
+    --height: 100px;
+
+    width: var(--width);
+    height: var(--height);
+}

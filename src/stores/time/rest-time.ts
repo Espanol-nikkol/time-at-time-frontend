@@ -1,0 +1,27 @@
+import { attach } from 'effector';
+
+import { TimeType } from '@domains/time';
+
+import { ApiTimeCreatePayload } from '@api/protocol';
+
+import { formatDate, getDefaultPeriod } from '@utils/date';
+
+import { createTimeFx, deleteTimeFx } from './time';
+
+export const resetRestTimeFx = attach({
+    effect: deleteTimeFx,
+    mapParams: (_: void) => ({
+        ...getDefaultPeriod(),
+        type: TimeType.Rest,
+    }),
+});
+
+export const createTimeRestFx = attach({
+    effect: createTimeFx,
+    mapParams: (value: number): ApiTimeCreatePayload => ({
+        value,
+        date: formatDate(new Date()),
+        type: TimeType.Rest,
+        period: getDefaultPeriod(),
+    }),
+});

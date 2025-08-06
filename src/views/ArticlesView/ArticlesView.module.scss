@@ -1,0 +1,76 @@
+@use '@styles/variables';
+@use '@styles/utils';
+
+.topContainer {
+    display: flex;
+    flex-direction: column;
+    border-bottom-right-radius: 24px;
+    border-bottom-left-radius: 24px;
+    background-image: variables.$gradient-main;
+    padding-bottom: 24px;
+    overflow: hidden;
+}
+
+.image {
+    align-self: flex-end;
+    margin-top: -22px;
+    margin-right: -48px;
+}
+
+:root .title {
+    margin-top: -62px;
+    font-size: utils.to-rem(24px);
+    text-align: left;
+}
+
+.subtitle {
+    margin-top: 12px;
+}
+
+.content {
+    margin-top: 16px;
+    margin-bottom: 32px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.item {
+    border-radius: 16px;
+    background-color: white;
+}
+
+.link {
+    display: flex;
+    text-decoration: none;
+}
+
+.itemTextContainer {
+    padding: 16px 0 20px 16px;
+}
+
+:root .itemTitle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: variables.$color-neutral-black;
+}
+
+.chevronIcon {
+    transform: rotateY(180deg);
+    width: 16px;
+    height: 16px;
+    color: variables.$color-text-caption-light;
+}
+
+:root .itemText {
+    color: variables.$color-text-caption;
+}
+
+.itemImage {
+    flex-shrink: 0;
+    color: variables.$color-background-tertiary;
+}

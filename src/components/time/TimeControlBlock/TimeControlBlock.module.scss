@@ -1,0 +1,97 @@
+@use '@styles/variables';
+
+.root {
+    border-radius: 24px;
+    background-color: white;
+    padding: 20px 16px;
+}
+
+.barContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: 'title value' 'bar bar';
+    gap: 6px;
+}
+
+:root .barTitle {
+    grid-area: title;
+    width: fit-content;
+    color: variables.$color-text-caption;
+}
+
+:root .barValue {
+    grid-area: value;
+    justify-self: flex-end;
+    width: fit-content;
+    color: variables.$color-text-caption-light;
+}
+
+.bar {
+    grid-area: bar;
+    border-radius: variables.$border-radius-max;
+    background-color: #ebebeb;
+    padding: 2px 0;
+}
+
+.controlsContainer {
+    margin-top: 12px;
+}
+
+:root .controlsTitle {
+    color: variables.$color-text-caption;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.controlItem {
+    width: fit-content;
+}
+
+.control {
+    --count-columns: 1;
+
+    display: grid;
+    grid-template-rows: repeat(2, min-content);
+    grid-template-columns: repeat(var(--count-columns), min-content);
+    column-gap: 8px;
+    border-radius: variables.$border-radius-max;
+    padding: 7px;
+    width: 76px;
+    height: 42px;
+}
+
+.controlValue {
+    font-weight: 704;
+    font-size: 15px;
+    line-height: 100%;
+    font-family: variables.$font-family-secondary;
+}
+
+.controlCaption {
+    margin-top: -3px;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 140%;
+    font-family: variables.$font-family-base;
+}
+
+.resetButton {
+    justify-content: center;
+    margin-top: 12px;
+}
+
+:root .resetButtonCaption {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    color: variables.$color-blue-1;
+}
+
+:root .caption {
+    color: variables.$color-text-caption-light;
+}

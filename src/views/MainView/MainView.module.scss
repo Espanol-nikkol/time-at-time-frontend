@@ -1,0 +1,65 @@
+@use '@styles/variables';
+
+.topContainer {
+    border-bottom-right-radius: 24px;
+    border-bottom-left-radius: 24px;
+    background-image: variables.$gradient-main;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.header {
+    display: flex;
+    gap: 4px;
+}
+
+:root .infoChip {
+    border: 1px solid variables.$color-secondary-light;
+    border-radius: 999px;
+    padding: 6px 10px;
+    min-height: 29px;
+    color: white;
+}
+
+.infoChipValue {
+    //    TODO: implement
+}
+
+.settingsButton {
+    margin-left: auto;
+}
+
+.editIcon {
+    margin-left: 4px;
+    width: 14px;
+    height: 14px;
+}
+
+.statisticContainer {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 12px;
+    padding-top: 16px;
+}
+
+.statusTitle {
+    margin-top: -20px;
+}
+
+.gauge {
+    position: absolute;
+    top: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.controlsContainer {
+    margin-top: 12px;
+    padding-bottom: 12px;
+}
+
+.tab {
+    margin-top: 8px;
+}

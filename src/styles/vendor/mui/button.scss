@@ -1,0 +1,26 @@
+@use '../../variables';
+
+/* stylelint-disable custom-property-pattern */
+.MuiButton-colorPrimary {
+    --variant-textColor: #{variables.$color-white};
+    --variant-outlinedColor: #{variables.$color-ui-elements-main};
+    --variant-outlinedBorder: #{variables.$color-blue-1};
+    --variant-containedColor: #fff;
+    --variant-containedBg: #{variables.$color-ui-elements-main};
+}
+
+.MuiButton-colorError {
+    --variant-textColor: #{variables.$color-ui-elements-error};
+}
+
+.MuiButtonBase-root {
+    border-radius: 32px;
+    text-transform: none;
+}
+
+.MuiButton-text {
+    & > .MuiTypography-root {
+        border-bottom: 1px dashed variables.$color-white;
+    }
+}
+/* stylelint-enable custom-property-pattern */

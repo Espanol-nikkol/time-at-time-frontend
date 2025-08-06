@@ -1,0 +1,5 @@
+@use '../../variables';
+
+.MuiBackdrop-root {
+    background-color: rgba(variables.$color-neutral-black, 0.25);
+}

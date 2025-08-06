@@ -1,0 +1,44 @@
+@use '@styles/variables';
+@use '@styles/utils';
+
+.header {
+    display: grid;
+    grid-template-columns: minmax(min-content, 66px) 1fr 66px;
+    grid-template-areas: 'back logo .';
+    border-bottom-right-radius: 24px;
+    border-bottom-left-radius: 24px;
+    background-color: white;
+    padding-top: 32px;
+    padding-bottom: 16px;
+}
+
+.backLink {
+    grid-area: back;
+    padding: 0;
+    width: fit-content;
+    color: variables.$color-blue-1;
+    white-space: nowrap;
+}
+
+:root .backLinkCaption {
+    color: inherit;
+}
+
+.logo {
+    display: flex;
+    grid-area: logo;
+    justify-self: center;
+}
+
+.main {
+    margin-top: 4px;
+    border-top-right-radius: 24px;
+    border-top-left-radius: 24px;
+    background-color: white;
+    padding-top: 112px;
+    height: calc(100vh - 88px);
+}
+
+:root .title {
+    color: variables.$color-blue-3;
+}

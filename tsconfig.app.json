@@ -1,0 +1,52 @@
+{
+    "compilerOptions": {
+        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+        "target": "ES2020",
+        "useDefineForClassFields": true,
+        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
+        "skipLibCheck": true,
+
+        /* Bundler mode */
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "isolatedModules": true,
+        "moduleDetection": "force",
+        "noEmit": true,
+        "jsx": "react-jsx",
+
+        /* Linting */
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUncheckedSideEffectImports": true,
+        "baseUrl": "./src",
+        "paths": {
+            "@domains/*": ["domains/*"],
+            "@domains": ["domains"],
+            "@stores/*": ["stores/*"],
+            "@stores": ["stores"],
+            "@api/*": ["api/*"],
+            "@api": ["api"],
+            "@utils/*": ["utils/*"],
+            "@utils": ["utils"],
+            "@hooks/*": ["hooks/*"],
+            "@hooks": ["hooks"],
+            "@views/*": ["views/*"],
+            "@views": ["views"],
+            "@layouts/*": ["layouts/*"],
+            "@layouts": ["layouts"],
+            "@components/*": ["components/*"],
+            "@components": ["components"],
+            "@styles/*": ["styles/*"],
+            "@styles": ["styles"],
+            "@assets/*": ["assets/*"],
+            "@assets": ["assets"],
+            "@mocks/*": ["mocks/*"],
+            "@mocks": ["mocks"],
+            "@routes": ["routes.ts"]
+        },
+    },
+    "include": ["src/**/*.ts", "src/**/*.tsx"]
+}

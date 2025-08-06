@@ -1,0 +1,18 @@
+@use '@styles/variables';
+
+.main {
+    position: relative;
+}
+
+.drawerButton {
+    position: fixed;
+    right: 12px;
+    bottom: 12px;
+    z-index: 1;
+    box-shadow: variables.$shadow-knob;
+    background-color: white;
+    padding: 0;
+    width: 42px;
+    height: 42px;
+    color: variables.$color-blue-3;
+}

@@ -1,0 +1,41 @@
+@use '@styles/variables';
+@use '@styles/utils';
+
+.tabPanelRoot {
+    min-height: auto;
+}
+
+.tabPanel {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+    border-radius: 999px;
+    background-color: white;
+    padding: 4px;
+    width: 100%;
+}
+
+.indicator {
+    display: none;
+}
+
+.tabButton {
+    @include utils.set-transition((color, background-color));
+
+    border-radius: variables.$border-radius-max;
+    padding: 10px 8px;
+    height: 40px;
+    min-height: auto;
+    color: variables.$color-black;
+    font-weight: 500;
+    font-size: utils.to-rem(14px);
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+    text-align: center;
+
+    &.isSelected {
+        border-bottom: none;
+        background-color: variables.$color-ui-elements-main;
+        color: white;
+    }
+}

@@ -1,0 +1,30 @@
+@use '@styles/variables';
+
+.body {
+    --margin-x: 16px;
+
+    position: relative;
+    margin-top: 144px;
+    margin-right: var(--margin-x);
+    margin-left: var(--margin-x);
+    border-radius: 16px;
+    background-color: white;
+    padding-top: 32px;
+    padding-bottom: 20px;
+    width: calc(100% - var(--margin-x) * 2);
+}
+
+:root .title {
+    margin-bottom: 8px;
+    color: variables.$color-neutral-black;
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    color: variables.$color-text-caption-light;
+}

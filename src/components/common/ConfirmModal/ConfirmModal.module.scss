@@ -1,0 +1,17 @@
+@use '@styles/variables';
+
+:root .message {
+    margin-bottom: 12px;
+    color: variables.$color-text-caption;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.button {
+    height: 48px;
+}
