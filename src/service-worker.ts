@@ -28,7 +28,7 @@ const zDateSchema = z.string().refine((value) => {
 type Config = {
     urlPart: string;
     method: string;
-    getData: (event: FetchEvent, payload: unknown) => Promise<unknown> | unknown;
+    getData: (event: FetchEvent, payload: unknown) => Promise<unknown>;
 };
 const db = new DB();
 const dbInstancePromise = db.init();
