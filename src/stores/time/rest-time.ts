@@ -4,7 +4,7 @@ import { TimeType } from '@domains/time';
 
 import { ApiTimeCreatePayload } from '@api/protocol';
 
-import { formatDate, getDefaultPeriod } from '@utils/date';
+import { ApiDateIso, getDefaultPeriod } from '@utils/date';
 
 import { createTimeFx, deleteTimeFx } from './time';
 
@@ -20,8 +20,7 @@ export const createTimeRestFx = attach({
     effect: createTimeFx,
     mapParams: (value: number): ApiTimeCreatePayload => ({
         value,
-        date: formatDate(new Date()),
+        date: ApiDateIso.get(new Date()),
         type: TimeType.Rest,
-        period: getDefaultPeriod(),
     }),
 });

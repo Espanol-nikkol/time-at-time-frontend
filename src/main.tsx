@@ -13,6 +13,8 @@ setDefaultOptions({
     locale: ru,
 });
 
+// TODO: рассмотреть подробнее информацию из import { useRegisterSW } from 'virtual:pwa-register/react';
+
 createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
         <App />

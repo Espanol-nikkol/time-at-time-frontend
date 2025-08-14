@@ -5,7 +5,7 @@ import { clsx } from 'clsx';
 import { Tab, Tabs } from '@mui/material';
 import { useUnit } from 'effector-react';
 
-import { $statistic } from '@stores/statistic';
+import { $statistic, fetchStatisticFx } from '@stores/statistic';
 import { createTimeProductiveFx, createTimeRestFx, resetProductiveTimeFx, resetRestTimeFx } from '@stores/time';
 
 import { TabContent } from '@components/common/TabContent/TabContent';
@@ -32,11 +32,9 @@ const modeToCaptionMap: Record<Mode, string> = {
 export const TimeControlTabs: FC<TimeControlBlockProps> = (props) => {
     const { classes } = props;
 
-    const { statistic } = useUnit({ statistic: $statistic });
+    const { statistic, isLoading } = useUnit({ statistic: $statistic, isLoading: fetchStatisticFx.pending });
 
     const [mode, setMode] = useState(Mode.Rest);
-
-    if (statistic === null) return null;
 
     return (
         <div className={clsx(styles.root)}>
@@ -66,7 +64,7 @@ export const TimeControlTabs: FC<TimeControlBlockProps> = (props) => {
             </Tabs>
             <TabContent value={Mode.Rest} isSelected={mode === Mode.Rest}>
                 <TimeControlBlock
-                    currentTime={statistic.restTime}
+                    currentTime={statistic?.restTime}
                     onChange={createTimeRestFx}
                     onReset={resetRestTimeFx}
                     caption={modeToCaptionMap[Mode.Rest]}
@@ -75,7 +73,7 @@ export const TimeControlTabs: FC<TimeControlBlockProps> = (props) => {
             </TabContent>
             <TabContent value={Mode.Create} isSelected={mode === Mode.Create}>
                 <TimeControlBlock
-                    currentTime={statistic.productiveTime}
+                    currentTime={statistic?.productiveTime}
                     onChange={createTimeProductiveFx}
                     onReset={resetProductiveTimeFx}
                     caption={modeToCaptionMap[Mode.Create]}

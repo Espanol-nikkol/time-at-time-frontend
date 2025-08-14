@@ -21,6 +21,7 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
         "noUncheckedSideEffectImports": true,
+        "noUncheckedIndexedAccess": true,
         "baseUrl": "./src",
         "paths": {
             "@domains/*": ["domains/*"],
@@ -46,7 +47,8 @@
             "@mocks/*": ["mocks/*"],
             "@mocks": ["mocks"],
             "@routes": ["routes.ts"]
-        },
+        }
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx"]
+//    "include": ["src/**/*.ts", "src/**/*.tsx"]
+    "include": ["src"]
 }

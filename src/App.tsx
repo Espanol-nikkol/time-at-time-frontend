@@ -10,6 +10,7 @@ import { Route, Routes as RoutesComponent } from 'react-router';
 import { routes, Routes } from '@routes';
 
 import { AppGate } from '@stores/app';
+import '@stores/statistic';
 
 import { SnackbarUtilsConfigurator } from '@utils/snackbar';
 
