@@ -5,7 +5,8 @@ import { clsx } from 'clsx';
 import { Tab, Tabs } from '@mui/material';
 import { useUnit } from 'effector-react';
 
-import { $statistic, fetchStatisticFx } from '@stores/statistic';
+import { doActionWithConfirm } from '@stores/confirm-modal';
+import { $statistic } from '@stores/statistic';
 import { createTimeProductiveFx, createTimeRestFx, resetProductiveTimeFx, resetRestTimeFx } from '@stores/time';
 
 import { TabContent } from '@components/common/TabContent/TabContent';
@@ -29,12 +30,34 @@ const modeToCaptionMap: Record<Mode, string> = {
         'Восстановительный отдых\u00a0\u2014 это время, потраченное на\u00a0отвлечение от\u00a0основной деятельности, например, видеоигры или просмотр сериалов',
 };
 
+// TODO: дебаунс с кумулятивным эффектом, чтобы можно было накликать, а отправлялось одним запросом
 export const TimeControlTabs: FC<TimeControlBlockProps> = (props) => {
     const { classes } = props;
 
-    const { statistic, isLoading } = useUnit({ statistic: $statistic, isLoading: fetchStatisticFx.pending });
+    const { statistic } = useUnit({ statistic: $statistic });
 
     const [mode, setMode] = useState(Mode.Rest);
+
+    const handleReset = (mode: Mode) => () => {
+        doActionWithConfirm({
+            action: mode === Mode.Rest ? resetRestTimeFx : resetProductiveTimeFx,
+            isRequiredConfirm: true,
+            title: (
+                <>
+                    Действительно хотите удалить записи о&nbsp;
+                    <span className={styles.accent}>
+                        {mode === Mode.Rest ? 'восстановительном' : 'продуктивном'}
+                    </span>{' '}
+                    отдыхе?
+                </>
+            ),
+            message: 'Это действие нельзя отменить. Оно приведет к\u00a0пересчету статистики за\u00a0эту неделю',
+            buttonLabels: {
+                submit: 'Да, удалить',
+                cancel: 'Не хочу',
+            },
+        });
+    };
 
     return (
         <div className={clsx(styles.root)}>
@@ -66,7 +89,7 @@ export const TimeControlTabs: FC<TimeControlBlockProps> = (props) => {
                 <TimeControlBlock
                     currentTime={statistic?.restTime}
                     onChange={createTimeRestFx}
-                    onReset={resetRestTimeFx}
+                    onReset={handleReset(Mode.Rest)}
                     caption={modeToCaptionMap[Mode.Rest]}
                     className={classes?.tab}
                 />
@@ -75,7 +98,7 @@ export const TimeControlTabs: FC<TimeControlBlockProps> = (props) => {
                 <TimeControlBlock
                     currentTime={statistic?.productiveTime}
                     onChange={createTimeProductiveFx}
-                    onReset={resetProductiveTimeFx}
+                    onReset={handleReset(Mode.Create)}
                     caption={modeToCaptionMap[Mode.Create]}
                     className={classes?.tab}
                 />
