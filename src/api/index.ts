@@ -73,13 +73,13 @@ const getRequest = <Request extends object | void, Response>(url: string, payloa
 const deleteRequest = <Request, Response>(url: string, body: Request): Promise<Response> =>
     createRequest<Request, Response>(url, Method.Delete, body);
 
-export const apiAuthLogin = (payload: ApiAuthLoginPayload) =>
+export const apiLogin = (payload: ApiAuthLoginPayload) =>
     postRequest<ApiAuthLoginPayload, ApiAuthLoginResponse>('/api/auth/login', payload);
 
-export const apiAuthRegister = (payload: ApiAuthRegisterPayload) =>
+export const apiRegister = (payload: ApiAuthRegisterPayload) =>
     postRequest<ApiAuthRegisterPayload, ApiAuthRegisterResponse>('/api/auth/register', payload);
 
-export const apiTimeCreate = (payload: ApiTimeCreatePayload) =>
+export const apiCreateTime = (payload: ApiTimeCreatePayload) =>
     postRequest<ApiTimeCreatePayload, ApiTimeCreateResponse>('/api/time', payload);
 
 export const apiGetStatistic = (payload: ApiGetStatisticPayload) => getRequest<ApiGetStatisticPayload, ApiGetStatisticResponse>('/api/time/statistic', payload);
@@ -92,5 +92,5 @@ export const apiDeleteTimeForPeriod = (payload: ApiTimeDeleteForPeriodPayload) =
         payload
     );
 
-export const apiUserSettingsChange = (payload: ApiUserSettingsChangePayload) =>
+export const apiChangeUserSettings = (payload: ApiUserSettingsChangePayload) =>
     postRequest<ApiUserSettingsChangePayload, ApiUserSettingsChangeResponse>('/api/user/settings', payload);

@@ -50,7 +50,6 @@ const pwaOptions: Partial<VitePWAOptions> = {
     filename: 'service-worker.ts',
     registerType: 'autoUpdate',
     injectRegister: false,
-    // selfDestroying: true,
 };
 
 export default defineConfig((config): UserConfig => {

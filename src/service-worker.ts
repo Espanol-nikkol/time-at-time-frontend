@@ -25,7 +25,7 @@ const zDateSchema = z.string().refine((value) => {
     return !Number.isNaN(date.getTime());
 });
 
-type MockConfig = {
+type Config = {
     urlPart: string;
     method: string;
     getData: (event: FetchEvent, payload: unknown) => Promise<unknown> | unknown;
@@ -51,7 +51,7 @@ const initRepositories = () => {
 
 const getRepositories = initRepositories();
 
-const config: MockConfig[] = [
+const config: Config[] = [
     {
         urlPart: '/api/user',
         method: 'GET',

@@ -9,11 +9,11 @@ import {
     ApiTimeDeleteForPeriodResponse,
 } from '@api/protocol';
 
-import { apiDeleteTimeForPeriod, apiTimeCreate } from '@api';
+import { apiDeleteTimeForPeriod, apiCreateTime } from '@api';
 
 import { timeDomain } from './domain';
 
-export const createTimeFx = timeDomain.effect<ApiTimeCreatePayload, ApiTimeCreateResponse>(apiTimeCreate);
+export const createTimeFx = timeDomain.effect<ApiTimeCreatePayload, ApiTimeCreateResponse>(apiCreateTime);
 
 export const deleteTimeFx = timeDomain.effect<ApiTimeDeleteForPeriodPayload, ApiTimeDeleteForPeriodResponse>(
     apiDeleteTimeForPeriod

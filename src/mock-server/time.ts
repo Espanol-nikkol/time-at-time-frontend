@@ -1,30 +1,14 @@
 import { differenceInCalendarDays, isSameDay, isToday, isWithinInterval, isYesterday, parseISO } from 'date-fns';
 
-import { TimeType } from '@domains/time';
+import { type PeriodPayload, TimeType } from '@domains/time';
 
-import type { ApiTimeDeleteForPeriodPayload } from '@api/protocol';
+import type { ApiTimeCreatePayload, ApiTimeDeleteForPeriodPayload } from '@api/protocol';
 
 import { ApiDateIso } from '@utils/date';
 
 import { BaseRepository } from './db';
 
-export type TimePayload = {
-    date: string;
-    value: number;
-    type: 'rest' | 'productive';
-};
-
-export type GetStatisticPayload = {
-    startDate: string;
-    endDate: string;
-};
-
-export type ApiDatePeriod = {
-    startDate: string;
-    endDate: string;
-};
-
-export const inDatePeriod = (period: ApiDatePeriod, targetIsoDate: string) =>
+export const inDatePeriod = (period: PeriodPayload, targetIsoDate: string) =>
     isWithinInterval(parseISO(targetIsoDate), {
         start: ApiDateIso.from(period.startDate),
         end: ApiDateIso.from(period.endDate),
@@ -37,7 +21,7 @@ export const isSameApiDay = (recordIsoDate: string, anotherApiDate: string) =>
     isSameDay(parseISO(recordIsoDate), ApiDateIso.from(anotherApiDate));
 
 export class TimeRepository extends BaseRepository {
-    async getStatistic(payload: GetStatisticPayload) {
+    async getStatistic(payload: PeriodPayload) {
         const allRecords = await this.db.time
             .find({
                 sort: [{ date: 'desc' }],
@@ -103,7 +87,7 @@ export class TimeRepository extends BaseRepository {
         return this.getStatistic({ startDate: payload.startDate, endDate: payload.endDate });
     }
 
-    public async create(payload: TimePayload) {
+    public async create(payload: ApiTimeCreatePayload) {
         const response = await this.db.time.insert({
             id: crypto.randomUUID(),
             ...payload,

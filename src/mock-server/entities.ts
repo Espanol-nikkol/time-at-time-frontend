@@ -4,29 +4,6 @@ import type { UserSettings } from '@domains/user';
 
 import { ApiDateIso } from '@utils/date';
 
-export type StatisticDbEntity = {
-    id: string;
-    restTime: number;
-    productiveTime: number;
-    countRecords: number;
-    streak: number;
-};
-
-// TODO: field props
-export const statisticSchema: RxJsonSchema<StatisticDbEntity> = {
-    version: 0,
-    type: 'object',
-    primaryKey: 'id',
-    properties: {
-        id: { type: 'string', maxLength: 5 },
-        restTime: { type: 'number' },
-        productiveTime: { type: 'number' },
-        countRecords: { type: 'number' },
-        streak: { type: 'number' },
-    },
-    required: ['id', 'restTime', 'productiveTime', 'countRecords', 'streak'],
-} as const;
-
 export type UserDbEntity = {
     id: string;
     email: string;

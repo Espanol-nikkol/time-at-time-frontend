@@ -5,14 +5,7 @@ import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';
 import { RxDBUpdatePlugin } from 'rxdb/plugins/update';
 import { wrappedValidateZSchemaStorage } from 'rxdb/plugins/validate-z-schema';
 
-import {
-    type StatisticDbEntity,
-    type TimeDbEntity,
-    timeMigrationStrategies,
-    timeSchema,
-    type UserDbEntity,
-    userSchema,
-} from './entities';
+import { type TimeDbEntity, timeMigrationStrategies, timeSchema, type UserDbEntity, userSchema } from './entities';
 
 addRxPlugin(RxDBMigrationSchemaPlugin);
 addRxPlugin(RxDBUpdatePlugin);
@@ -20,7 +13,6 @@ addRxPlugin(RxDBDevModePlugin);
 
 export type DbCollection = {
     users: RxCollection<UserDbEntity>;
-    statistic: RxCollection<StatisticDbEntity>;
     time: RxCollection<TimeDbEntity>;
 };
 
@@ -29,24 +21,19 @@ export class DB {
         const db = await createRxDatabase<DbCollection>({
             name: 'mydb1',
             storage: wrappedValidateZSchemaStorage({ storage: getRxStorageDexie() }),
-            // only for develop
+            // TODO: only for develop?
             closeDuplicates: true,
         });
 
-        if (!db.closed) {
-            await db.addCollections({
-                users: {
-                    schema: userSchema,
-                },
-                // statistic: {
-                //     schema: statisticSchema,
-                // },
-                time: {
-                    schema: timeSchema,
-                    migrationStrategies: timeMigrationStrategies,
-                },
-            });
-        }
+        await db.addCollections({
+            users: {
+                schema: userSchema,
+            },
+            time: {
+                schema: timeSchema,
+                migrationStrategies: timeMigrationStrategies,
+            },
+        });
         return db;
     }
 }

@@ -9,13 +9,13 @@ import {
 } from '@api/protocol';
 import { removeToken } from '@api/token';
 
-import { apiAuthLogin, apiAuthRegister } from '@api';
+import { apiLogin, apiRegister } from '@api';
 
 import { appDomain } from './domain';
 
-export const loginFx = appDomain.effect<ApiAuthLoginPayload, ApiAuthLoginResponse>(apiAuthLogin);
+export const loginFx = appDomain.effect<ApiAuthLoginPayload, ApiAuthLoginResponse>(apiLogin);
 export const logoutFx = appDomain.effect<void, unknown>();
-export const registerFx = appDomain.effect<ApiAuthRegisterPayload, ApiAuthRegisterResponse>(apiAuthRegister);
+export const registerFx = appDomain.effect<ApiAuthRegisterPayload, ApiAuthRegisterResponse>(apiRegister);
 
 export const isLoggedIn = appDomain.event();
 
