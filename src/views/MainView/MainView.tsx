@@ -23,16 +23,22 @@ import styles from './MainView.module.scss';
 
 import PencilIcon from '@assets/icons/pencil.svg?react';
 
-// type ControlItem = {
-//     value: number;
-//     caption: string;
-// };
-
-// const timeValues: number[] = [5, 10, 15, 30, 45, 60, 90, 120];
-
-// const timeControls: ControlItem[] = timeValues.map((value) => ({ value, caption: `+${value}` }));
-
 // TODO: add skeleton wrapper
+const getUserStatusByDeltaTime = (value: number) => {
+    if (value >= 120) return UserStatus.WorkExtra;
+
+    if (60 <= value && value < 120) return UserStatus.Work;
+
+    if (0 < value && value < 60) return UserStatus.WorkLight;
+
+    if (-60 < value && value < 0) return UserStatus.RelaxLight;
+
+    if (-120 < value && value <= -60) return UserStatus.Relax;
+
+    if (value <= -120) return UserStatus.RelaxExtra;
+
+    return UserStatus.Neutral;
+};
 
 export const MainView: FC = () => {
     const { statistic, settings } = useUnit({ statistic: $statistic, settings: $settings });
@@ -45,6 +51,9 @@ export const MainView: FC = () => {
     const handleSettingsClick = () => {
         settingsModalApi.open();
     };
+
+    const deltaTime = productiveTime - restTime;
+    const status = getUserStatusByDeltaTime(deltaTime);
 
     return (
         <CommonLayout className={styles.root}>
@@ -71,9 +80,9 @@ export const MainView: FC = () => {
                     </Button>
                 </div>
                 <div className={styles.statisticContainer}>
-                    <Gauge deltaTime={restTime - productiveTime} className={styles.gauge} />
-                    <Avatar status={UserStatus.Neutral} />
-                    <UserStatusCaption status={UserStatus.Neutral} classes={{ title: styles.statusTitle }} />
+                    <Gauge deltaTime={deltaTime} className={styles.gauge} />
+                    <Avatar status={status} />
+                    <UserStatusCaption status={status} classes={{ title: styles.statusTitle }} />
                 </div>
             </StyledContainer>
             <StyledContainer className={styles.controlsContainer}>

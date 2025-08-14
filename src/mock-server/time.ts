@@ -28,6 +28,7 @@ export class TimeRepository extends BaseRepository {
             })
             .exec();
         let streak: number | null = 0;
+        // TODO: учитывать коэффициент времени
         let productiveTime = 0;
         let restTime = 0;
 
