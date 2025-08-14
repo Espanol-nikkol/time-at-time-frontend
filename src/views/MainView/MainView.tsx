@@ -5,8 +5,7 @@ import { useUnit } from 'effector-react';
 
 import { UserStatus } from '@domains/user';
 
-import { $settings } from '@stores/app';
-import { settingsModalApi } from '@stores/app/settings';
+import { $settings, settingsModalApi } from '@stores/settings';
 import { $statistic } from '@stores/statistic';
 
 import { pluralize } from '@utils/pluralize';
@@ -41,7 +40,7 @@ export const MainView: FC = () => {
     const restTime = statistic?.restTime ?? 0;
     const productiveTime = statistic?.productiveTime ?? 0;
     const countRecord = statistic?.countRecords ?? 0;
-    const statisticLength = statistic?.length ?? 0;
+    const statisticLength = statistic?.streak ?? 0;
 
     const handleSettingsClick = () => {
         settingsModalApi.open();

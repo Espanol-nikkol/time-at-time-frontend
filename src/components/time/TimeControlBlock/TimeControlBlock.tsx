@@ -2,9 +2,12 @@ import { type CSSProperties, FC } from 'react';
 
 import { clsx } from 'clsx';
 
-import { Button, LinearProgress, List, ListItem, Typography } from '@mui/material';
+import { Button, LinearProgress, List, ListItem, Skeleton, Typography } from '@mui/material';
 import { type Duration, formatDuration } from 'date-fns';
 import { minutesInHour } from 'date-fns/constants';
+import { useUnit } from 'effector-react';
+
+import { fetchStatisticFx } from '@stores/statistic';
 
 import styles from './TimeControlBlock.module.scss';
 
@@ -59,7 +62,7 @@ const MAX_PROGRESS_VALUE = 1000;
 const normalizeCurrentTime = (value: number) => (value * 100) / MAX_PROGRESS_VALUE;
 
 type TimeControlBlockProps = {
-    currentTime: number;
+    currentTime?: number;
     onChange: (value: number) => void;
     onReset: () => void;
     caption?: string;
@@ -69,11 +72,14 @@ type TimeControlBlockProps = {
 export const TimeControlBlock: FC<TimeControlBlockProps> = (props) => {
     const { currentTime, onChange, onReset, caption, className } = props;
 
+    const { isLoading } = useUnit({ isLoading: fetchStatisticFx.pending });
+
     const handleChange = (duration: Duration) => {
         const { hours = 0, minutes = 0 } = duration;
 
         onChange(minutes + hours * minutesInHour);
     };
+
     return (
         <div className={clsx(styles.root, className)}>
             <div className={styles.barContainer}>
@@ -81,11 +87,11 @@ export const TimeControlBlock: FC<TimeControlBlockProps> = (props) => {
                     На этой неделе:
                 </Typography>
                 <Typography variant="body2" className={styles.barValue}>
-                    {currentTime} мин
+                    {currentTime === undefined && isLoading ? <Skeleton /> : <>{currentTime} мин</>}
                 </Typography>
                 <LinearProgress
                     variant="determinate"
-                    value={normalizeCurrentTime(currentTime)}
+                    value={normalizeCurrentTime(currentTime ?? 0)}
                     className={styles.bar}
                 />
             </div>

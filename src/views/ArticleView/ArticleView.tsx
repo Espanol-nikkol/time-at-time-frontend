@@ -11,7 +11,7 @@ import { $article } from '@stores/articles/item';
 
 import { CommonLayout } from '@layouts/CommonLayout/CommonLayout.tsx';
 
-import { Contents } from '@components/Article/Contents/Contents';
+import { Contents } from '@components/article/Contents/Contents';
 import { type Images, Picture } from '@components/common/Picture/Picture';
 import { StyledContainer } from '@components/common/StyledContainer/StyledContainer';
 

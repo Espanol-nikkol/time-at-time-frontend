@@ -11,6 +11,8 @@ import {
     ApiTimeCreateResponse,
     ApiTimeDeleteForPeriodPayload,
     ApiTimeDeleteForPeriodResponse,
+    type ApiUserSettingsChangePayload,
+    type ApiUserSettingsChangeResponse,
 } from '@api/protocol';
 import { getToken, saveToken } from '@api/token';
 
@@ -21,7 +23,7 @@ enum Method {
 }
 
 // TODO: change on axios?
-const createRequest = <Request, Response>(url: string, method: Method, body?: Request): Promise<Response> => {
+const createRequest = async <Request, Response>(url: string, method: Method, body?: Request): Promise<Response> => {
     const headers = new Headers({
         'Content-Type': 'application/json',
     });
@@ -38,12 +40,10 @@ const createRequest = <Request, Response>(url: string, method: Method, body?: Re
     if (body !== undefined) {
         options.body = JSON.stringify(body);
     }
-    return fetch(url, options).then(async (response) => {
-        console.log({ response });
 
+    return fetch(url, options).then(async (response) => {
         if (response.ok) {
             const result = await response.json();
-            console.log({ result });
 
             if (typeof result === 'object' && 'accessToken' in result && typeof result['accessToken'] === 'string') {
                 saveToken(result['accessToken']);
@@ -58,29 +58,39 @@ const createRequest = <Request, Response>(url: string, method: Method, body?: Re
 const postRequest = <Request, Response>(url: string, body: Request): Promise<Response> =>
     createRequest<Request, Response>(url, Method.Post, body);
 
-const getRequest = <Request, Response>(url: string, body: Request): Promise<Response> =>
-    createRequest<Request, Response>(url, Method.Get, body);
+const getRequest = <Request extends object | void, Response>(url: string, payload?: Request): Promise<Response> => {
+    const searchParams = new URLSearchParams();
+
+    if (payload !== undefined) {
+        for (const [key, value] of Object.entries(payload)) {
+            searchParams.set(key, typeof value === 'string' ? value : JSON.stringify(value));
+        }
+    }
+    const urlWithParams = searchParams.size === 0 ? url : `${url}?${searchParams.toString()}`;
+    return createRequest<Request, Response>(urlWithParams, Method.Get);
+};
 
 const deleteRequest = <Request, Response>(url: string, body: Request): Promise<Response> =>
     createRequest<Request, Response>(url, Method.Delete, body);
 
-export const apiAuthLogin = (payload: ApiAuthLoginPayload) =>
+export const apiLogin = (payload: ApiAuthLoginPayload) =>
     postRequest<ApiAuthLoginPayload, ApiAuthLoginResponse>('/api/auth/login', payload);
 
-export const apiAuthRegister = (payload: ApiAuthRegisterPayload) =>
+export const apiRegister = (payload: ApiAuthRegisterPayload) =>
     postRequest<ApiAuthRegisterPayload, ApiAuthRegisterResponse>('/api/auth/register', payload);
 
-export const apiTimeCreate = (payload: ApiTimeCreatePayload) =>
-    postRequest<ApiTimeCreatePayload, ApiTimeCreateResponse>('/api/time/create', payload);
+export const apiCreateTime = (payload: ApiTimeCreatePayload) =>
+    postRequest<ApiTimeCreatePayload, ApiTimeCreateResponse>('/api/time', payload);
 
-export const apiStatisticGet = (payload: ApiGetStatisticPayload) =>
-    postRequest<ApiGetStatisticPayload, ApiGetStatisticResponse>('/api/time/statistic', payload);
+export const apiGetStatistic = (payload: ApiGetStatisticPayload) => getRequest<ApiGetStatisticPayload, ApiGetStatisticResponse>('/api/time/statistic', payload);
 
-export const apiUserGet = (payload: ApiGetUserPayload) =>
-    getRequest<ApiGetUserPayload, ApiGetUserResponse>('/api/user', payload);
+export const apiGetUser = () => getRequest<ApiGetUserPayload, ApiGetUserResponse>('/api/user');
 
 export const apiDeleteTimeForPeriod = (payload: ApiTimeDeleteForPeriodPayload) =>
     deleteRequest<ApiTimeDeleteForPeriodPayload, ApiTimeDeleteForPeriodResponse>(
         '/api/time/delete-for-period',
         payload
     );
+
+export const apiChangeUserSettings = (payload: ApiUserSettingsChangePayload) =>
+    postRequest<ApiUserSettingsChangePayload, ApiUserSettingsChangeResponse>('/api/user/settings', payload);
