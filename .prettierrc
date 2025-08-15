@@ -1,0 +1,50 @@
+{
+    "semi": true,
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "printWidth": 120,
+    "arrowParens": "always",
+    "tabWidth": 4,
+    "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-css-order"],
+    "overrides": [
+        {
+            "files": ["**/*.scss"],
+            "options": {
+                "order": "concentric-css"
+            }
+        }
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true,
+    "importOrderGroupNamespaceSpecifiers": true,
+    "importOrderCaseInsensitive": true,
+    "importOrder": [
+        "^react$",
+        "^clsx$",
+        "<THIRD_PARTY_MODULES>",
+        "^@routes",
+        "^@domains/(.*)$",
+        "^@domains$",
+        "^@stores/(.*)$",
+        "^@stores$",
+        "^@api/(.*)$",
+        "^@api$",
+        "^@utils/(.*)$",
+        "^@utils$",
+        "^@hooks/(.*)$",
+        "^@hooks$",
+        "^@views/(.*)$",
+        "^@views$",
+        "^@layouts/(.*)$",
+        "^@layouts$",
+        "^@components/(.*)$",
+        "^@components$",
+        "^\\.\\/.+(?<!s?css)$",
+        "^@styles$",
+        "^@styles/(.*)$",
+        "^\\./.+\\.s?css$",
+        "^@assets$",
+        "^@assets/(.*)$",
+        "^[./]"
+    ]
+}
