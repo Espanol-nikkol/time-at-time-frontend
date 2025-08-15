@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import { type FC, useEffect } from 'react';
 
 import { Button, OutlinedInput, type OutlinedInputProps, Typography } from '@mui/material';
 import { useUnit } from 'effector-react';
@@ -62,6 +62,12 @@ export const SettingsModal: FC = () => {
         form.reset();
         settingsModalApi.close();
     };
+
+    useEffect(() => {
+        if (settings?.ratioProductiveTimeToRestTime !== undefined) {
+            form.setValue('ratio', settings.ratioProductiveTimeToRestTime);
+        }
+    }, [form, settings?.ratioProductiveTimeToRestTime]);
 
     return (
         <BaseModal

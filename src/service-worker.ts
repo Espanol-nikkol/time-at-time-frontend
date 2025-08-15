@@ -1,4 +1,6 @@
-import { endOfWeekWithOptions, startOfWeekWithOptions } from 'date-fns/fp';
+import * as A from 'fp-ts/Array';
+import * as D from 'fp-ts/Date';
+import { differenceInCalendarDays, isToday, isYesterday, parseISO } from 'date-fns';
 import { pipe } from 'fp-ts/function';
 import { clientsClaim } from 'workbox-core';
 import { precacheAndRoute } from 'workbox-precaching';
@@ -9,6 +11,8 @@ import { TimeType } from '@domains/time';
 import { ApiDateIso } from '@utils/date';
 
 import { DB } from './mock-server/db';
+import type { StatisticDbEntity } from './mock-server/entities';
+import { StatisticRepository } from './mock-server/statistic';
 import { TimeRepository } from './mock-server/time';
 import { UserRepository } from './mock-server/user';
 
@@ -36,16 +40,18 @@ const dbInstancePromise = db.init();
 const initRepositories = () => {
     let userRepository: UserRepository | null = null;
     let timeRepository: TimeRepository | null = null;
+    let statisticRepository: StatisticRepository | null = null;
 
     return async () => {
-        if (userRepository !== null && timeRepository !== null) {
-            return { userRepository, timeRepository };
+        if (userRepository !== null && timeRepository !== null && statisticRepository !== null) {
+            return { userRepository, timeRepository, statisticRepository };
         }
 
         const dbInstance = await dbInstancePromise;
         userRepository = new UserRepository(dbInstance);
         timeRepository = new TimeRepository(dbInstance);
-        return { userRepository, timeRepository };
+        statisticRepository = new StatisticRepository(dbInstance);
+        return { userRepository, timeRepository, statisticRepository };
     };
 };
 
@@ -82,7 +88,7 @@ const config: Config[] = [
     {
         urlPart: '/api/time/statistic',
         getData: async (_, payload) => {
-            const { timeRepository } = await getRepositories();
+            const { statisticRepository } = await getRepositories();
             const parsedPayload = z
                 .object({
                     startDate: zDateSchema,
@@ -93,7 +99,7 @@ const config: Config[] = [
             if (!parsedPayload.success) {
                 throw new Error(parsedPayload.error.message);
             }
-            return timeRepository.getStatistic(parsedPayload.data);
+            return statisticRepository.get(parsedPayload.data);
         },
         method: 'GET',
     },
@@ -101,7 +107,7 @@ const config: Config[] = [
         urlPart: '/api/time',
         method: 'POST',
         getData: async (_, payload) => {
-            const { timeRepository } = await getRepositories();
+            const { timeRepository, statisticRepository } = await getRepositories();
             const parsedPayload = z
                 .object({
                     value: z.number(),
@@ -114,17 +120,14 @@ const config: Config[] = [
                 throw new Error(parsedPayload.error.message);
             }
             await timeRepository.create(parsedPayload.data);
-            return timeRepository.getStatistic({
-                startDate: pipe(new Date(), startOfWeekWithOptions({ weekStartsOn: 1 }), ApiDateIso.get),
-                endDate: pipe(new Date(), endOfWeekWithOptions({ weekStartsOn: 1 }), ApiDateIso.get),
-            });
+            return statisticRepository.updateOnTimeAdd(parsedPayload.data);
         },
     },
     {
         urlPart: '/api/time/delete-for-period',
         method: 'DELETE',
         getData: async (_, payload) => {
-            const { timeRepository } = await getRepositories();
+            const { timeRepository, statisticRepository } = await getRepositories();
             const parsedPayload = z
                 .object({
                     startDate: zDateSchema,
@@ -137,7 +140,49 @@ const config: Config[] = [
                 throw new Error(parsedPayload.error.message);
             }
             await timeRepository.delete(parsedPayload.data);
-            return timeRepository.getStatistic({
+            const timeItems = await timeRepository.getItems();
+            const uniqDates = pipe(
+                timeItems,
+                A.map((item) => parseISO(item.date)),
+                A.uniq(D.eqDate)
+            );
+
+            let streak = 0;
+
+            for (const [index, date] of uniqDates.entries()) {
+                if (index === 0) {
+                    if (isToday(date) || isYesterday(date)) {
+                        streak = 1;
+                    } else {
+                        break;
+                    }
+                }
+                const previousDate = uniqDates[index - 1];
+
+                if (previousDate === undefined) {
+                    break;
+                }
+                const diff = differenceInCalendarDays(previousDate, date);
+
+                if (diff === 1) {
+                    streak += 1;
+                } else {
+                    break;
+                }
+            }
+            const statisticPayload: Partial<StatisticDbEntity> = {
+                streak,
+                lastRecordDate: timeItems[0]?.date ?? null,
+                countRecords: timeItems.length,
+            };
+
+            if (parsedPayload.data.type === TimeType.Productive) {
+                statisticPayload.productiveTime = 0;
+            } else {
+                statisticPayload.restTime = 0;
+            }
+
+            return statisticRepository.updateRaw(statisticPayload, {
                 startDate: parsedPayload.data.startDate,
                 endDate: parsedPayload.data.endDate,
             });
