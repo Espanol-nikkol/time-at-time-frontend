@@ -1,6 +1,6 @@
-import type { UserSettings } from '@domains/user';
-
 import { BaseRepository } from './db';
+
+import type { UserSettings } from '../domains/user';
 
 export class UserRepository extends BaseRepository {
     async get() {

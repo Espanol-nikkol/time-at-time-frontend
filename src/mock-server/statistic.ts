@@ -1,13 +1,11 @@
 import { endOfWeek, isToday, isYesterday, parseISO, startOfWeek } from 'date-fns';
 
-import { type PeriodPayload, TimeType } from '@domains/time';
-
-import type { ApiTimeCreatePayload } from '@api/protocol';
-
-import { ApiDateIso } from '@utils/date';
-
 import { BaseRepository } from './db';
 import type { StatisticDbEntity } from './entities';
+
+import type { ApiTimeCreatePayload } from '../api/protocol';
+import { type PeriodPayload, TimeType } from '../domains/time';
+import { ApiDateIso } from '../utils/date';
 
 export class StatisticRepository extends BaseRepository {
     async get(payload: PeriodPayload) {

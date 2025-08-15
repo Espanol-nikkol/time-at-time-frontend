@@ -6,15 +6,13 @@ import { clientsClaim } from 'workbox-core';
 import { precacheAndRoute } from 'workbox-precaching';
 import { z } from 'zod';
 
-import { TimeType } from '@domains/time';
-
-import { ApiDateIso } from '@utils/date';
-
+import { TimeType } from './domains/time';
 import { DB } from './mock-server/db';
 import type { StatisticDbEntity } from './mock-server/entities';
 import { StatisticRepository } from './mock-server/statistic';
 import { TimeRepository } from './mock-server/time';
 import { UserRepository } from './mock-server/user';
+import { ApiDateIso } from './utils/date';
 
 declare let self: ServiceWorkerGlobalScope;
 
@@ -214,6 +212,8 @@ async function handleFetchWithMocks(event: FetchEvent): Promise<Response> {
         });
     } catch (error) {
         console.error('catch error', error);
+        // TODO: type for error
+        // @ts-expect-error type for error
         return new Response(error, {
             status: 500,
             headers: { 'Content-Type': 'application/json' },

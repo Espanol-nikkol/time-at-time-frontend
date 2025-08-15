@@ -1,8 +1,7 @@
-import type { ApiTimeCreatePayload, ApiTimeDeleteForPeriodPayload } from '@api/protocol';
-
-import { ApiDateIso } from '@utils/date';
-
 import { BaseRepository } from './db';
+
+import type { ApiTimeCreatePayload, ApiTimeDeleteForPeriodPayload } from '../api/protocol';
+import { ApiDateIso } from '../utils/date';
 
 export class TimeRepository extends BaseRepository {
     public async getItems() {

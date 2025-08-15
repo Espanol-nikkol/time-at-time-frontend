@@ -1,6 +1,6 @@
 import type { RxJsonSchema } from 'rxdb';
 
-import type { UserSettings } from '@domains/user';
+import type { UserSettings } from '../domains/user';
 
 export type UserDbEntity = {
     id: string;

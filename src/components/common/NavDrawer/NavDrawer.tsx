@@ -65,7 +65,9 @@ export const NavDrawer: FC<NavDrawerProps> = (props) => {
                             <NavLink
                                 to={item.path}
                                 onClick={onClose}
-                                className={({ isActive }) => clsx(styles.link, { [styles.isActive]: isActive })}
+                                className={({ isActive }) =>
+                                    clsx(styles.link, { [styles.isActive as string]: isActive })
+                                }
                             >
                                 {item.icon}
                                 <Typography variant="body2" className={styles.text}>
