@@ -1,8 +1,6 @@
-import type { MigrationStrategies, RxJsonSchema } from 'rxdb';
+import type { RxJsonSchema } from 'rxdb';
 
 import type { UserSettings } from '@domains/user';
-
-import { ApiDateIso } from '@utils/date';
 
 export type UserDbEntity = {
     id: string;
@@ -24,10 +22,12 @@ export const userSchema: RxJsonSchema<UserDbEntity> = {
             properties: {
                 ratioProductiveTimeToRestTime: { type: 'number' },
             },
-            required: ['ratioProductiveTimeToRestTime'],
+            default: {
+                ratioProductiveTimeToRestTime: 2,
+            },
         },
     },
-    required: ['id', 'email', 'name', 'settings'],
+    required: ['id', 'email', 'name'],
 } as const;
 
 export type TimeDbEntity = {
@@ -38,7 +38,7 @@ export type TimeDbEntity = {
 };
 
 export const timeSchema: RxJsonSchema<TimeDbEntity> = {
-    version: 1,
+    version: 0,
     type: 'object',
     primaryKey: 'id',
     properties: {
@@ -61,10 +61,54 @@ export const timeSchema: RxJsonSchema<TimeDbEntity> = {
     required: ['id', 'type', 'date', 'value'],
 };
 
-export const timeMigrationStrategies: MigrationStrategies<TimeDbEntity> = {
-    // 0 -> 1
-    1: (oldRecord) => {
-        oldRecord.date = ApiDateIso.from(oldRecord.date).toISOString();
-        return oldRecord;
+export type StatisticDbEntity = {
+    id: string;
+    lastRecordDate: string | null;
+    productiveTime: number;
+    restTime: number;
+    streak: number;
+    countRecords: number;
+    startDate: string;
+    endDate: string;
+};
+
+export const statisticSchema: RxJsonSchema<StatisticDbEntity> = {
+    version: 0,
+    type: 'object',
+    primaryKey: 'id',
+    properties: {
+        id: {
+            type: 'string',
+            maxLength: 100,
+        },
+        startDate: {
+            type: 'string',
+            format: 'date-time',
+        },
+        endDate: {
+            type: 'string',
+            format: 'date-time',
+        },
+        lastRecordDate: {
+            default: null,
+            type: ['string', 'null'],
+            format: 'date-time',
+        },
+        restTime: {
+            type: 'number',
+            default: 0,
+        },
+        productiveTime: {
+            type: 'number',
+            default: 0,
+        },
+        streak: {
+            type: 'number',
+            default: 0,
+        },
+        countRecords: {
+            type: 'number',
+        },
     },
+    required: ['id', 'startDate', 'endDate'],
 };

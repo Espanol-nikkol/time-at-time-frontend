@@ -59,7 +59,7 @@ const getTimeCaption = (value: Duration) => {
 
 const MAX_PROGRESS_VALUE = 1000;
 
-const normalizeCurrentTime = (value: number) => (value * 100) / MAX_PROGRESS_VALUE;
+const normalizeCurrentTime = (value: number) => Math.min(100, (value * 100) / MAX_PROGRESS_VALUE);
 
 type TimeControlBlockProps = {
     currentTime?: number;

@@ -25,17 +25,17 @@ import PencilIcon from '@assets/icons/pencil.svg?react';
 
 // TODO: add skeleton wrapper
 const getUserStatusByDeltaTime = (value: number) => {
-    if (value >= 120) return UserStatus.WorkExtra;
+    if (value >= 180) return UserStatus.WorkExtra;
 
-    if (60 <= value && value < 120) return UserStatus.Work;
+    if (90 <= value && value < 180) return UserStatus.Work;
 
-    if (0 < value && value < 60) return UserStatus.WorkLight;
+    if (0 < value && value < 90) return UserStatus.WorkLight;
 
-    if (-60 < value && value < 0) return UserStatus.RelaxLight;
+    if (-90 < value && value < 0) return UserStatus.RelaxLight;
 
-    if (-120 < value && value <= -60) return UserStatus.Relax;
+    if (-180 < value && value <= -90) return UserStatus.Relax;
 
-    if (value <= -120) return UserStatus.RelaxExtra;
+    if (value <= -180) return UserStatus.RelaxExtra;
 
     return UserStatus.Neutral;
 };
@@ -52,7 +52,7 @@ export const MainView: FC = () => {
         settingsModalApi.open();
     };
 
-    const deltaTime = productiveTime - restTime;
+    const deltaTime = productiveTime / (settings?.ratioProductiveTimeToRestTime ?? 1) - restTime;
     const status = getUserStatusByDeltaTime(deltaTime);
 
     return (
