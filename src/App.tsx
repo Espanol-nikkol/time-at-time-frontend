@@ -17,6 +17,7 @@ import { ArticlesView } from '@views/ArticlesView/ArticlesView.tsx';
 import { ArticleView } from '@views/ArticleView/ArticleView';
 import { LoginView } from '@views/LoginView/LoginView';
 import { MainView } from '@views/MainView/MainView.tsx';
+import { NotFound } from '@views/NotFound/NotFound';
 import { RecoveryView } from '@views/RecoveryView/RecoveryView';
 import { RegisterView } from '@views/RegisterView/RegisterView';
 
@@ -105,6 +106,7 @@ export const App = () => {
                         {routes.map((route) => (
                             <Route key={route.name} path={route.path} element={routeElementByNameMap[route.name]} />
                         ))}
+                        <Route path="*" element={<NotFound />} />
                     </RoutesComponent>
                     <ConfirmModal />
                 </ThemeProvider>

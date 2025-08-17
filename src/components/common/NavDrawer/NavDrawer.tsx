@@ -17,7 +17,7 @@ import styles from './NavDrawer.module.scss';
 
 import CloseIcon from '@assets/icons/close.svg?react';
 import FileIcon from '@assets/icons/file.svg?react';
-import LoginIcon from '@assets/icons/login.svg?react';
+// import LoginIcon from '@assets/icons/login.svg?react';
 import LogoutIcon from '@assets/icons/logout.svg?react';
 import SpeedtestIcon from '@assets/icons/speedtest.svg?react';
 
@@ -87,16 +87,17 @@ export const NavDrawer: FC<NavDrawerProps> = (props) => {
                                 </Typography>
                                 , и&nbsp;ваши записи об&nbsp;отдыхе не&nbsp;сохраняются.
                                 <br />
-                                Чтобы они сохранялись, войдите в&nbsp;аккаунт
+                                {/*Чтобы они сохранялись, войдите в&nbsp;аккаунт*/}
+                                <span className={styles.error}>Сервер временно не готов к приему пользователей</span>
                             </Typography>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                href={routeToPathMap[Routes.Login]}
-                                className={styles.loginLink}
-                            >
-                                <LoginIcon /> <Typography variant="body2Bold"> Войти или зарегистрироваться</Typography>
-                            </Button>
+                            {/*<Button*/}
+                            {/*    variant="contained"*/}
+                            {/*    color="primary"*/}
+                            {/*    href={routeToPathMap[Routes.Login]}*/}
+                            {/*    className={styles.loginLink}*/}
+                            {/*>*/}
+                            {/*    <LoginIcon /> <Typography variant="body2Bold"> Войти или зарегистрироваться</Typography>*/}
+                            {/*</Button>*/}
                         </>
                     ) : (
                         <Button onClick={onLogoutClick} className={styles.logoutButon} color="error" variant="text">

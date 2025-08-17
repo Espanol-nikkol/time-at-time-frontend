@@ -11,6 +11,8 @@ import { Routes, routeToPathMap } from '@routes';
 import { ArticleGate } from '@stores/articles';
 import { $article } from '@stores/articles/item';
 
+import { NotFound } from '@views/NotFound/NotFound';
+
 import { CommonLayout } from '@layouts/CommonLayout/CommonLayout.tsx';
 
 import { ArticleItem } from '@components/article/ArticleItem/ArticleItem';
@@ -39,8 +41,7 @@ export const ArticleView: FC = () => {
 
     useGate(ArticleGate, { slugId });
 
-    // TODO: return NotFound
-    if (data === null) return null;
+    if (data === null) return <NotFound />;
 
     const { content } = data;
 
