@@ -4,6 +4,5 @@ export type Statistic = {
     restTime: number;
     productiveTime: number;
     countRecords: number;
-    // Подобрать слово для "Серия" / may be strik
-    length: number;
+    streak: number;
 };

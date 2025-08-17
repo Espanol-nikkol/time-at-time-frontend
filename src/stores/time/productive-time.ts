@@ -24,6 +24,5 @@ export const createTimeProductiveFx = attach({
         value,
         date: ApiDateIso.get(today),
         type: TimeType.Productive,
-        period: getDefaultPeriod(),
     }),
 });

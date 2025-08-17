@@ -25,6 +25,12 @@
     line-height: 1.45;
 }
 
+.MuiTypography-h5 {
+    font-weight: 700;
+    font-size: utils.to-rem(22px);
+    line-height: 1.25;
+}
+
 .MuiTypography-h5Branded {
     font-weight: 704;
     font-size: utils.to-rem(22px);

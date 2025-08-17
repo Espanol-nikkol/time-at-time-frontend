@@ -10,6 +10,7 @@
     flex-direction: column;
     padding-top: 32px;
     padding-bottom: 80px;
+    max-width: 390px;
     height: 100%;
 }
 
@@ -49,6 +50,10 @@
     .accent {
         color: variables.$color-blue-3;
     }
+}
+
+.error {
+    color: variables.$color-ui-elements-error;
 }
 
 .loginLink {

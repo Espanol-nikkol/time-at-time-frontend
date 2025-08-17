@@ -23,15 +23,18 @@
 body {
     display: flex;
     place-items: center;
-    margin: 0;
+    margin: 0 auto;
+    max-width: 390px;
 }
 
 #root {
+    display: flex;
     flex-grow: 1;
+    flex-direction: column;
     width: 100vw;
+    height: 100vh;
 }
 
-/* TODO: define styles for a, ul, ol, li, button, p */
 ul {
     margin: 0;
     padding: 0;

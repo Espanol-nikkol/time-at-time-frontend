@@ -8,6 +8,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
+// TODO: [@stylistic/eslint-plugin-ts] This package is deprecated
 export default tseslint.config(
     { ignores: ['node_modules', 'build'] },
     {

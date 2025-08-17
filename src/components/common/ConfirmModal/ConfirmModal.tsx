@@ -17,7 +17,6 @@ const DEFAULT_LABELS: ConfirmModalState['buttonLabels'] = {
 export const ConfirmModal: FC = () => {
     const { state } = useUnit({ state: $confirmModal });
 
-    // TODO: был какой-то хук для загрузки
     const [isLoading, setIsLoading] = useState(false);
 
     if (state.modal === null || !state.isOpen) return;

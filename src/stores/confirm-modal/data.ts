@@ -1,16 +1,20 @@
+import type { ReactNode } from 'react';
+
 import { createApi } from 'effector';
 import { constant } from 'fp-ts/function';
 
+import { clearedSession } from '@stores/app';
+
 import { confirmModalDomain } from './domain';
 
-import { clearedSession } from '../app';
-
 export type ConfirmModalState = {
-    title: string;
+    title: ReactNode | string;
     message?: string;
     action: () => Promise<unknown>;
     buttonLabels?: {
+        // Default - "Да"
         submit?: string;
+        // Default - "Нет"
         cancel?: string;
     };
 };
@@ -35,24 +39,6 @@ export const confirmModalApi = createApi($confirmModal, {
 type DoActionWithConfirmPayload = ConfirmModalState & {
     isRequiredConfirm: boolean;
 };
-// export const doActionWithConfirm2 = confirmModalDomain.event<DoActionWithConfirmPayload>();
-//
-// sample({
-//     clock: doActionWithConfirm,
-//     filter: (payload) => payload.isRequiredConfirm,
-//     target: confirmModalApi.open,
-// });
-
-// split({
-//     clock: doActionWithConfirm2,
-//     source: doActionWithConfirm2,
-//     cases: {
-//         a: () => false,
-//     },
-//     match: {
-//         a: confirmModalApi.open,
-//     },
-// });
 
 export const doActionWithConfirm = (payload: DoActionWithConfirmPayload) => {
     const { isRequiredConfirm, ...modalPayload } = payload;
