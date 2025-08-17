@@ -1,0 +1,11 @@
+@use '@styles/variables';
+
+.topContainer {
+    display: flex;
+    justify-content: center;
+    border-bottom-right-radius: 24px;
+    border-bottom-left-radius: 24px;
+    background-color: white;
+    padding-top: 32px;
+    padding-bottom: 8px;
+}

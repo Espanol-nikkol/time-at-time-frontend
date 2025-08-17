@@ -3,12 +3,21 @@
 
 .topContainer {
     display: grid;
+    position: relative;
     grid-template-columns: min-content 1fr 66px;
-    grid-template-areas: 'back logo .' 'contents contents contents';
+    grid-template-areas: 'back logo .';
+    z-index: 1;
+    background-color: white;
+    padding-top: 32px;
+}
+
+.contentsContainer {
+    position: sticky;
+    top: 0;
+    box-shadow: variables.$shadow-knob;
     border-bottom-right-radius: 24px;
     border-bottom-left-radius: 24px;
     background-color: white;
-    padding-top: 32px;
     padding-bottom: 8px;
 }
 
@@ -31,7 +40,27 @@
 }
 
 .contents {
-    grid-area: contents;
     padding-top: 12px;
     padding-left: 4px;
+}
+
+.content {
+    //--scrollMarginTop:
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+    border-radius: 24px;
+    background-color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+:root .title {
+    margin-bottom: 16px;
+    color: variables.$color-blue-3;
+}
+
+:root .text {
+    color: variables.$color-black;
+    white-space: pre-wrap;
 }

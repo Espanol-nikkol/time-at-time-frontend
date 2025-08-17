@@ -82,7 +82,8 @@ export const apiRegister = (payload: ApiAuthRegisterPayload) =>
 export const apiCreateTime = (payload: ApiTimeCreatePayload) =>
     postRequest<ApiTimeCreatePayload, ApiTimeCreateResponse>('/api/time', payload);
 
-export const apiGetStatistic = (payload: ApiGetStatisticPayload) => getRequest<ApiGetStatisticPayload, ApiGetStatisticResponse>('/api/time/statistic', payload);
+export const apiGetStatistic = (payload: ApiGetStatisticPayload) =>
+    getRequest<ApiGetStatisticPayload, ApiGetStatisticResponse>('/api/time/statistic', payload);
 
 export const apiGetUser = () => getRequest<ApiGetUserPayload, ApiGetUserResponse>('/api/user');
 
