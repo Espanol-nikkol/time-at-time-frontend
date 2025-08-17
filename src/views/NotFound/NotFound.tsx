@@ -25,27 +25,24 @@ const logoImage: Images = {
     '2x': Logo2x,
 };
 
-export const NotFound: FC = () => {
-    console.log();
-    return (
-        <CommonLayout>
-            <StyledContainer className={styles.topContainer}>
-                <Picture images={logoImage} width={79} height={36} alt="" classes={{ root: styles.logo }} />
-            </StyledContainer>
-            <StyledContainer>
-                <Picture images={mainImage} width={224} height={194} alt="" classes={{ root: styles.logo }} />
-                <Typography variant="h5Branded" className={styles.title}>
-                    страница не найдена
-                </Typography>
-                <Typography variant="body2" className={styles.text}>
-                    Кажется, у нас нет такой страницы.
-                    <br />
-                    Проверьте правильность введенного адреса или вернитесь на главную
-                </Typography>
-                <Button variant="contained" href={routeToPathMap[Routes.Main]} fullWidth>
-                    На главную
-                </Button>
-            </StyledContainer>
-        </CommonLayout>
-    );
-};
+export const NotFound: FC = () => (
+    <CommonLayout>
+        <StyledContainer className={styles.topContainer}>
+            <Picture images={logoImage} width={79} height={36} alt="" />
+        </StyledContainer>
+        <StyledContainer className={styles.container}>
+            <Picture images={mainImage} width={224} height={194} alt="" classes={{ root: styles.image }} />
+            <Typography variant="h5Branded" className={styles.title}>
+                страница не найдена
+            </Typography>
+            <Typography variant="body2" className={styles.text}>
+                Кажется, у нас нет такой страницы.
+                <br />
+                Проверьте правильность введенного адреса или вернитесь на главную
+            </Typography>
+            <Button variant="contained" href={routeToPathMap[Routes.Main]} fullWidth className={styles.button}>
+                На главную
+            </Button>
+        </StyledContainer>
+    </CommonLayout>
+);

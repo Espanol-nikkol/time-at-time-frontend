@@ -9,3 +9,36 @@
     padding-top: 32px;
     padding-bottom: 8px;
 }
+
+.container {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8px;
+    border-top-right-radius: 24px;
+    border-top-left-radius: 24px;
+    background-color: white;
+    padding-top: 12px;
+    padding-bottom: 72px;
+}
+
+.image {
+    margin-top: 30px;
+}
+
+:root .title {
+    margin-top: 12px;
+    color: variables.$color-blue-3;
+}
+
+:root .text {
+    margin-top: 8px;
+    color: variables.$color-black;
+    text-align: center;
+}
+
+.button {
+    margin-top: 28px;
+}
