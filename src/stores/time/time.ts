@@ -9,7 +9,7 @@ import {
     ApiTimeDeleteForPeriodResponse,
 } from '@api/protocol';
 
-import { apiDeleteTimeForPeriod, apiCreateTime } from '@api';
+import { apiCreateTime, apiDeleteTimeForPeriod } from '@api';
 
 import { timeDomain } from './domain';
 

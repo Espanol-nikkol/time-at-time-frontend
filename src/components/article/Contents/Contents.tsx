@@ -3,7 +3,9 @@ import { type CSSProperties, type FC, useState } from 'react';
 import { clsx } from 'clsx';
 
 import { Button, Collapse, Typography } from '@mui/material';
-import { SimpleTreeView, TreeItem } from '@mui/x-tree-view';
+import { SimpleTreeView, type SimpleTreeViewProps, TreeItem } from '@mui/x-tree-view';
+
+import type { Article } from '@domains/article';
 
 import styles from './Contents.module.scss';
 
@@ -11,14 +13,27 @@ import ContentsIcon from '@assets/icons/contents.svg?react';
 
 type ContentsProps = {
     className?: string;
+    data: Article;
 };
 
-// TODO: данные и генерация
-
 export const Contents: FC<ContentsProps> = (props) => {
-    const { className } = props;
+    const { className, data } = props;
 
     const [isExpanded, setIsExpanded] = useState(false);
+
+    const handleClick: SimpleTreeViewProps<false>['onItemClick'] = (_, id) => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+
+    const expandedItems =
+        data.content?.paragraphs?.reduce(
+            (items, item, index) => [
+                ...items,
+                `item-${index}`,
+                ...(item.paragraphs?.map((_, subItemIndex) => `item-${index}-subitem-${subItemIndex}`) ?? []),
+            ],
+            ['title']
+        ) ?? [];
 
     return (
         <div className={clsx(styles.root, className)}>
@@ -30,7 +45,8 @@ export const Contents: FC<ContentsProps> = (props) => {
             </Button>
             <Collapse in={isExpanded}>
                 <SimpleTreeView
-                    expandedItems={['title', 'subtitle-1']}
+                    onItemClick={handleClick}
+                    expandedItems={expandedItems}
                     slotProps={{
                         collapseIcon: { className: styles.icon },
                         root: {
@@ -39,67 +55,56 @@ export const Contents: FC<ContentsProps> = (props) => {
                         },
                     }}
                 >
-                    <TreeItem
-                        itemId={'title'}
-                        label={
-                            <Typography variant="body2" className={styles.subtitle}>
-                                Терминология
-                            </Typography>
-                        }
-                        classes={{ content: styles.item, label: styles.label }}
-                    >
+                    {data.content.title !== undefined && (
                         <TreeItem
-                            itemId={'subtitle-1'}
+                            itemId="title"
                             label={
                                 <Typography variant="body2" className={styles.subtitle}>
-                                    Отдых
+                                    {data.content.title}
                                 </Typography>
                             }
-                            classes={{ content: styles.subitem, label: styles.label }}
-                            slotProps={{
-                                groupTransition: {
-                                    style: { '--TreeView-itemChildrenIndentation': '12px' } as CSSProperties,
-                                },
-                            }}
+                            classes={{ content: styles.item, label: styles.label }}
                         >
-                            <TreeItem
-                                itemId={'subsubtitle-2'}
-                                label={
-                                    <Typography variant="body2" className={styles.subtitle}>
-                                        Созидательный отдых
-                                    </Typography>
-                                }
-                                classes={{ label: styles.label }}
-                            ></TreeItem>
-                            <TreeItem
-                                itemId={'subsubtitle-3'}
-                                classes={{ label: styles.label }}
-                                label={
-                                    <Typography variant="body2" className={styles.subtitle}>
-                                        Восстановительный отдых
-                                    </Typography>
-                                }
-                            ></TreeItem>
-                            <TreeItem
-                                itemId={'subsubtitle-4'}
-                                classes={{ label: styles.label }}
-                                label={
-                                    <Typography variant="body2" className={styles.subtitle}>
-                                        Базовая потребность в восстановительном отдыхе
-                                    </Typography>
-                                }
-                            ></TreeItem>
-                            <TreeItem
-                                itemId={'subtitle-5'}
-                                classes={{ label: styles.label, root: styles.subitem }}
-                                label={
-                                    <Typography variant="body2" className={styles.subtitle}>
-                                        Повышенный интерес к восстановительному отдыху
-                                    </Typography>
-                                }
-                            ></TreeItem>
+                            {data.content.paragraphs?.map((item, index) => {
+                                const itemIdPrefix = `item-${index}`;
+                                return (
+                                    <TreeItem
+                                        itemId={itemIdPrefix}
+                                        key={itemIdPrefix}
+                                        label={
+                                            <Typography variant="body2" className={styles.subtitle}>
+                                                {item.title}
+                                            </Typography>
+                                        }
+                                        classes={{ content: styles.subitem, label: styles.label }}
+                                        slotProps={{
+                                            groupTransition: {
+                                                style: {
+                                                    '--TreeView-itemChildrenIndentation': '12px',
+                                                } as CSSProperties,
+                                            },
+                                        }}
+                                    >
+                                        {item.paragraphs?.map((subItem, subItemIndex) => {
+                                            const subItemIdPrefix = `${itemIdPrefix}-subitem-${subItemIndex}`;
+                                            return (
+                                                <TreeItem
+                                                    itemId={subItemIdPrefix}
+                                                    key={subItemIdPrefix}
+                                                    label={
+                                                        <Typography variant="body2" className={styles.subtitle}>
+                                                            {subItem.title ?? subItem.subtitle}
+                                                        </Typography>
+                                                    }
+                                                    classes={{ label: styles.label }}
+                                                ></TreeItem>
+                                            );
+                                        })}
+                                    </TreeItem>
+                                );
+                            })}
                         </TreeItem>
-                    </TreeItem>
+                    )}
                 </SimpleTreeView>
             </Collapse>
         </div>

@@ -1,0 +1,27 @@
+@use '@styles/variables';
+@use '@styles/utils';
+
+:root .text {
+    margin-top: 8px;
+    color: variables.$color-black;
+    white-space: pre-wrap;
+}
+
+:root .title {
+    margin-bottom: 16px;
+    color: variables.$color-blue-3;
+
+    & + .text {
+        margin-top: 0;
+    }
+}
+
+:root .itemTitle {
+    margin-top: 24px;
+    color: variables.$color-blue-2;
+}
+
+:root .itemSubtitle {
+    margin-top: 12px;
+    color: variables.$color-black;
+}

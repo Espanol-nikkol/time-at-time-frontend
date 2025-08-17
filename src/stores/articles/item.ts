@@ -1,11 +1,14 @@
 import { restore, sample } from 'effector';
-import { type Article, mockArticles } from 'mock/articles';
+
+import type { Article } from '@domains/article';
 
 import { clearedSession } from '@stores/app';
 import { displayApiError } from '@stores/effect-handling';
 
 import { articlesDomain } from './domain';
 import { ArticleGate } from './gate';
+
+import { mockArticles } from '../../mock/articles';
 
 type FetchArticlePayload = {
     slugId?: string;

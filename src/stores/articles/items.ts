@@ -1,9 +1,12 @@
 import { restore, sample } from 'effector';
-import { type ArticleLight, mockShortArticles } from 'mock/articles';
+
+import type { ArticleLight } from '@domains/article';
 
 import { AppGate, clearedSession } from '@stores/app';
 
 import { articlesDomain } from './domain';
+
+import { mockShortArticles } from '../../mock/articles';
 
 const fetchArticlesFx = articlesDomain.effect<void, ArticleLight[]>(() => mockShortArticles.items);
 
