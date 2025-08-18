@@ -1,56 +1,27 @@
-# React + TypeScript + Vite
+# Time At Time
+Основная задача приложения - помочь эффективно распределить свободное время между отдыхом и саморазвитием.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Текущее состояние
+В данный момент в приложении действует только демо-режим, который даёт возможность пользоваться всем функционалом приложения.
 
-Currently, two official plugins are available:
+Но нельзя зарегистрироваться и при удалении данных браузера потеряете записи в приложении
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Технологии:
+- React
+- Vite
+- MUI
+- Typescript
+- Effector
+- PWA
+- Service-workers
+- RxDB
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
-
-[//]: # (TODO: add react compiler)
-[//]: # (TODO: think about replace fp-ts)
-[//]: # (TODO: read anput error boundary)
-[//]: # (TODO: add effector linter)
-[//]: # (TODO: think about replace rhf)
+# Планы-планы-планы:
+- развернуться на github pages
+- настроить CI/CD
+- переехать с RxDB на аналог
+- полная работоспособность
+- полноценный оффлайн-режим
+- статистика пользователя
+- интеграция входа через другие сервисы (Гугл, Яндекс, ВК)
+- десктоп дизайн
