@@ -34,6 +34,7 @@ export const PasswordField = forwardRef<HTMLDivElement, PasswordFieldProps>((pro
                         type={isPasswordVisible ? 'text' : 'password'}
                         label={label}
                         ref={ref}
+                        fullWidth
                         {...fieldProps}
                     />
                     {fieldState.error !== undefined && (

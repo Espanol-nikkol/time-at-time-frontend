@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { clsx } from 'clsx';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@mui/material';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
@@ -9,6 +11,8 @@ import { registerFx } from '@stores/app';
 
 import { EmailField } from '@components/common/EmailField/EmailField';
 import { PasswordField } from '@components/common/PasswordField/PasswordField';
+
+import styles from './RegisterForm.module.scss';
 
 type FormData = {
     email: string;
@@ -30,11 +34,12 @@ const schema = z.object({
 
 type RegisterFormProps = {
     onSubmit?: () => void;
+    className?: string;
 };
 
 // TODO: think about abstract process zod error
 export const RegisterForm: FC<RegisterFormProps> = (props) => {
-    const { onSubmit } = props;
+    const { onSubmit, className } = props;
 
     const form = useForm<FormData>({
         resolver: zodResolver(schema),
@@ -56,7 +61,7 @@ export const RegisterForm: FC<RegisterFormProps> = (props) => {
 
     return (
         <FormProvider {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)}>
+            <form onSubmit={form.handleSubmit(handleSubmit)} className={clsx(styles.root, className)}>
                 <EmailField name="email" label="E-mail" />
                 <PasswordField name="password" label="Пароль" />
                 <PasswordField
@@ -69,7 +74,9 @@ export const RegisterForm: FC<RegisterFormProps> = (props) => {
                         },
                     }}
                 />
-                <Button type="submit">Зарегистрироваться</Button>
+                <Button variant="contained" color="primary" className={styles.submitButton} type="submit">
+                    Зарегистрироваться
+                </Button>
             </form>
         </FormProvider>
     );

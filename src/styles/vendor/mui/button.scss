@@ -23,4 +23,12 @@
         border-bottom: 1px dashed variables.$color-white;
     }
 }
+
+.MuiButton-sizeSmall {
+    min-height: 42px;
+}
+
+.MuiButton-sizeMedium {
+    min-height: 48px;
+}
 /* stylelint-enable custom-property-pattern */

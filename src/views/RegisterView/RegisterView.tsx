@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 
 import { Typography } from '@mui/material';
 import { constant } from 'fp-ts/function';
-import { Route } from 'react-router';
+import { Link } from 'react-router';
 import { match } from 'ts-pattern';
 
 import { Routes, routeToPathMap } from '@routes';
@@ -11,6 +11,8 @@ import { LoginLayout } from '@layouts/LoginLayout/LoginLayout';
 
 import { RegisterForm } from '@components/auth/RegisterForm/RegisterForm';
 import { RegisterSuccess } from '@components/auth/RegisterForm/RegisterSuccess';
+
+import styles from './RegisterView.module.scss';
 
 enum Step {
     Form = 'form',
@@ -28,14 +30,17 @@ export const RegisterView: FC = () => {
         .exhaustive();
 
     const notion = (
-        <Typography>
-            Уже зарегистрированы? <Route path={routeToPathMap[Routes.Login]}>Войдите в аккаунт</Route>
+        <Typography variant="body2" className={styles.notion}>
+            Уже зарегистрированы?{' '}
+            <Link to={routeToPathMap[Routes.Login]} className={styles.registerLink}>
+                Войдите в аккаунт
+            </Link>
         </Typography>
     );
 
     return (
         <LoginLayout title={title} notion={notion} backLink={routeToPathMap[Routes.Login]}>
-            {step === Step.Form && <RegisterForm onSubmit={handleSubmit} />}
+            {step === Step.Form && <RegisterForm className={styles.form} onSubmit={handleSubmit} />}
             {step === Step.Success && <RegisterSuccess />}
         </LoginLayout>
     );

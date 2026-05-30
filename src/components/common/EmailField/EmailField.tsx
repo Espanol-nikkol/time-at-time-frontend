@@ -27,6 +27,7 @@ export const EmailField = forwardRef<HTMLDivElement, EmailFieldProps>((props, re
                         label={label}
                         error={fieldState.error !== undefined}
                         autoComplete="email"
+                        fullWidth
                         {...fieldProps}
                     />
                     {fieldState.error !== undefined && (
