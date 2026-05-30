@@ -4,17 +4,19 @@ import { constTrue, constVoid } from 'fp-ts/function';
 import {
     ApiAuthLoginPayload,
     ApiAuthLoginResponse,
+    type ApiAuthLogoutPayload,
+    type ApiAuthLogoutResponse,
     ApiAuthRegisterPayload,
     ApiAuthRegisterResponse,
 } from '@api/protocol';
 import { removeToken } from '@api/token';
 
-import { apiLogin, apiRegister } from '@api';
+import { apiLogin, apiLogout, apiRegister } from '@api';
 
 import { appDomain } from './domain';
 
 export const loginFx = appDomain.effect<ApiAuthLoginPayload, ApiAuthLoginResponse>(apiLogin);
-export const logoutFx = appDomain.effect<void, unknown>();
+export const logoutFx = appDomain.effect<ApiAuthLogoutPayload, ApiAuthLogoutResponse>(apiLogout);
 export const registerFx = appDomain.effect<ApiAuthRegisterPayload, ApiAuthRegisterResponse>(apiRegister);
 
 export const isLoggedIn = appDomain.event();

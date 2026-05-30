@@ -1,6 +1,8 @@
 import {
     ApiAuthLoginPayload,
     ApiAuthLoginResponse,
+    type ApiAuthLogoutPayload,
+    type ApiAuthLogoutResponse,
     ApiAuthRegisterPayload,
     ApiAuthRegisterResponse,
     ApiGetStatisticPayload,
@@ -75,6 +77,9 @@ const deleteRequest = <Request, Response>(url: string, body: Request): Promise<R
 
 export const apiLogin = (payload: ApiAuthLoginPayload) =>
     postRequest<ApiAuthLoginPayload, ApiAuthLoginResponse>('/api/auth/login', payload);
+
+export const apiLogout = (payload: ApiAuthLogoutPayload) =>
+    postRequest<ApiAuthLogoutPayload, ApiAuthLogoutResponse>('/api/auth/logout', payload);
 
 export const apiRegister = (payload: ApiAuthRegisterPayload) =>
     postRequest<ApiAuthRegisterPayload, ApiAuthRegisterResponse>('/api/auth/register', payload);

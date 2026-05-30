@@ -3,6 +3,7 @@ import { Statistic } from '@domains/statistic';
 import { PeriodPayload, TimeType } from '@domains/time';
 import { User, type UserSettings } from '@domains/user';
 
+// [POST] api/auth/login
 export type ApiAuthLoginPayload = {
     email: string;
     password: string;
@@ -11,6 +12,10 @@ export type ApiAuthLoginResponse = {
     token: string;
     userId: string;
 };
+
+// [POST] api/auth/logout
+export type ApiAuthLogoutPayload = void;
+export type ApiAuthLogoutResponse = void;
 
 // [POST] api/auth/register
 export type ApiAuthRegisterPayload = {
