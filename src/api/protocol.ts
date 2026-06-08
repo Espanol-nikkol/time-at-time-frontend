@@ -32,6 +32,7 @@ export type ApiTimeCreatePayload = {
     date: string;
     value: number;
     type: TimeType;
+    period: PeriodPayload;
 };
 export type ApiTimeCreateResponse = Statistic;
 

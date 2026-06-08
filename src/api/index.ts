@@ -85,7 +85,7 @@ export const apiRegister = (payload: ApiAuthRegisterPayload) =>
     postRequest<ApiAuthRegisterPayload, ApiAuthRegisterResponse>('/api/auth/register', payload);
 
 export const apiCreateTime = (payload: ApiTimeCreatePayload) =>
-    postRequest<ApiTimeCreatePayload, ApiTimeCreateResponse>('/api/time', payload);
+    postRequest<ApiTimeCreatePayload, ApiTimeCreateResponse>('/api/time/create', payload);
 
 export const apiGetStatistic = (payload: ApiGetStatisticPayload) =>
     getRequest<ApiGetStatisticPayload, ApiGetStatisticResponse>('/api/time/statistic', payload);

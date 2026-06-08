@@ -22,5 +22,6 @@ export const createTimeRestFx = attach({
         value,
         date: ApiDateIso.get(new Date()),
         type: TimeType.Rest,
+        period: getDefaultPeriod(),
     }),
 });
