@@ -5,6 +5,12 @@
     color: variables.$color-blue-3;
 }
 
+.container {
+    max-width: 358px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 :root .text {
     color: variables.$color-text-caption;
 }

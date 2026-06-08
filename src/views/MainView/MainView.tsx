@@ -60,9 +60,7 @@ export const MainView: FC = () => {
             <StyledContainer className={styles.topContainer}>
                 <div className={styles.header}>
                     <Typography variant="caption" className={styles.infoChip}>
-                        <Typography variant="captionBranded" className={styles.infoChipValue}>
-                            {countRecord}
-                        </Typography>{' '}
+                        <Typography variant="captionBranded">{countRecord}</Typography>{' '}
                         {pluralize(countRecord, ['запись', 'записи', 'записей'])}
                     </Typography>
                     <Typography variant="caption" className={styles.infoChip}>

@@ -78,6 +78,7 @@ export const SettingsModal: FC = () => {
             }
             isOpen={state.isOpen}
             onClose={handleClose}
+            classes={{ body: styles.container }}
         >
             <Typography variant="body2" className={styles.text}>
                 Влияет на&nbsp;ваш баланс между восстановлением и&nbsp;созиданием

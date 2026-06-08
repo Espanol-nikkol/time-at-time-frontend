@@ -6,21 +6,23 @@
     font-weight: variables.$font-weight-regular;
     line-height: 1.4;
     font-family: variables.$font-family-base;
-    letter-spacing: 0.01em;
+    letter-spacing: 1%;
 }
 
 .MuiTypography-subtitle2 {
-    font-weight: 400;
     font-size: utils.to-rem(14px);
     line-height: 1.35;
 }
 
 .MuiTypography-captionBranded {
-    //    TODO: implement
+    font-family: "TT Travels Next Trial Variable", sans-serif;
+    font-weight: bold;
+    font-size: utils.to-rem(12px);
+    line-height: 1.45;
+    letter-spacing: 1.5%;
 }
 
 .MuiTypography-caption {
-    font-weight: 400;
     font-size: utils.to-rem(12px);
     line-height: 1.45;
 }

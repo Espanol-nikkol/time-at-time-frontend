@@ -1,5 +1,7 @@
 import type { FC, PropsWithChildren, ReactNode } from 'react';
 
+import { clsx } from 'clsx';
+
 import { IconButton, Modal, Typography } from '@mui/material';
 
 import { StyledContainer } from '@components/common/StyledContainer/StyledContainer';
@@ -8,18 +10,20 @@ import styles from './BaseModal.module.scss';
 
 import CloseIcon from '@assets/icons/close.svg?react';
 
+type ClassKey = 'body';
+
 type BaseModalProps = {
     title: string | ReactNode;
     isOpen: boolean;
     onClose?: () => void;
-};
+} & ClassesProp<ClassKey>;
 
 export const BaseModal: FC<PropsWithChildren<BaseModalProps>> = (props) => {
-    const { title, isOpen, onClose, children } = props;
+    const { title, isOpen, onClose, classes, children } = props;
 
     return (
         <Modal open={isOpen} onClose={() => onClose?.()} classes={{ backdrop: styles.backdrop }}>
-            <StyledContainer className={styles.body}>
+            <StyledContainer className={clsx(styles.body, classes?.body)}>
                 <Typography variant="h6" className={styles.title}>
                     {title}
                 </Typography>

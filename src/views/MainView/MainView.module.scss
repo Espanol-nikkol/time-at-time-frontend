@@ -11,6 +11,7 @@
 .header {
     display: flex;
     gap: 4px;
+    align-items: center;
 }
 
 :root .infoChip {
@@ -18,15 +19,12 @@
     border-radius: 999px;
     padding: 6px 10px;
     min-height: 29px;
-    color: white;
 }
 
-.infoChipValue {
-    //    TODO: implement
-}
-
-.settingsButton {
+:root .settingsButton {
     margin-left: auto;
+    min-height: 29px;
+    padding: 0;
 }
 
 .editIcon {
@@ -49,10 +47,10 @@
 }
 
 .gauge {
-    position: absolute;
-    top: 35px;
-    left: 50%;
-    transform: translateX(-50%);
+    //position: absolute;
+    //top: 35px;
+    //left: 50%;
+    //transform: translateX(-50%);
 }
 
 .controlsContainer {
